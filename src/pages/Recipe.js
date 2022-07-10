@@ -2,21 +2,38 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { BiShareAlt } from "react-icons/bi";
 
 const Recipe = () => {
   const [details, setDetails] = useState({});
   const [activeTab, setActiveTab] = useState("instructions");
   const params = useParams();
+  const host = window.location.origin;
+  const pathname = window.location.pathname;
+  const urll = host + pathname;
+  console.log(urll);
+  const share = async () => {
+    try {
+      if(navigator.share) {
+        await navigator.share({
+          text : "I have found this awesome recipe❤️, You should also try this",
+          url: urll
+        })
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
-  const getRecipe = async () => {
-    const res = await axios.get(
-      `https://api.spoonacular.com/recipes/${params.name}/information?apiKey=${process.env.REACT_APP_API_KEY}`
-    );
-    const data = res.data;
-    setDetails(data);
-  };
   console.log(details);
   useEffect(() => {
+    const getRecipe = async () => {
+      const res = await axios.get(
+        `https://api.spoonacular.com/recipes/${params.name}/information?apiKey=${process.env.REACT_APP_API_KEY}`
+      );
+      const data = res.data;
+      setDetails(data);
+    };
     getRecipe();
   }, [params.name]);
   return (
@@ -24,6 +41,9 @@ const Recipe = () => {
       <div>
         <h2>{details.title}</h2>
         <img src={details.image} alt="" />
+        <div onClick={share} style={{ cursor: "pointer" }}>
+          <BiShareAlt size="2rem"  />
+        </div>
       </div>
       <Info>
         <Button
