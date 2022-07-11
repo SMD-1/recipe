@@ -30,7 +30,7 @@ const List = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 2rem 0rem;
+  padding: 10px;
 `;
 
 const StyleLink = styled(NavLink)`
@@ -39,7 +39,6 @@ const StyleLink = styled(NavLink)`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  margin: 1rem 2rem 1rem 0;
   background: linear-gradient(35deg, #494949, #313131);
   width: 6rem;
   height: 6rem;

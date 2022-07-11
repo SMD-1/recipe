@@ -29,8 +29,6 @@ const FormStyle = styled.form`
   border-radius: 5px;
   padding: 10px;
   position: relative;
-  width: 350px;
-  margin: 1rem auto;
 
   input {
     font-size: 1.2rem;

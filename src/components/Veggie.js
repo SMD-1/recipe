@@ -13,7 +13,7 @@ const Veggie = () => {
       setVeggie(JSON.parse(check));
     } else {
       const api = await axios.get(
-        `https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_API_KEY}&number=10&tags=vegetarian`
+        `https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_API_KEY_LOCAL}&number=10&tags=vegetarian`
       );
       let data = api.data;
       localStorage.setItem("veggie", JSON.stringify(data.recipes));
@@ -29,10 +29,15 @@ const Veggie = () => {
   return (
     <div>
       <Wrapper>
-        <h1>Our vegeterian picks</h1>
+        <h1 style={{ marginBottom: "8px" }}>Our vegeterian picks</h1>
         <Splide
           options={{
             perPage: 3,
+            breakpoints: {
+              935: {
+                perPage: 2,
+              },
+            },
             rewind: true,
             // arrows: false,
             pagination: false,

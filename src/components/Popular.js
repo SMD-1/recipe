@@ -13,7 +13,7 @@ const Popular = () => {
       setPopular(JSON.parse(check));
     } else {
       const populaar = await axios.get(
-        `https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_API_KEY}&number=10`
+        `https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_API_KEY_LOCAL}&number=10`
       );
       const data = populaar.data;
       localStorage.setItem("popular", JSON.stringify(data.recipes));
@@ -29,10 +29,21 @@ const Popular = () => {
   return (
     <div>
       <Wrapper>
-        <h1>Popular picks</h1>
+        <h1 style={{ marginBottom: "8px" }}>Popular picks</h1>
         <Splide
           options={{
             perPage: 4,
+            breakpoints: {
+              1024: {
+                perPage: 3,
+              },
+              767: {
+                perPage: 2,
+              },
+              640: {
+                perPage: 1,
+              },
+            },
             rewind: true,
             // arrows: false,
             pagination: false,

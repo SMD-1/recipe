@@ -10,17 +10,27 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Nav>
-          <GiKnifeFork />
-          <Logo to="/">Logo</Logo>
-        </Nav>
-        <Search />
+        <Header className="header">
+          <Nav>
+            <GiKnifeFork />
+            <Logo to="/">Logo</Logo>
+          </Nav>
+          <Search />
+        </Header>
         <Category />
         <Pages />
       </BrowserRouter>
     </div>
   );
 }
+
+const Header = styled.div`
+  display: flex;
+  padding: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 const Logo = styled(Link)`
   text-decoration: none;
@@ -30,9 +40,7 @@ const Logo = styled(Link)`
 `;
 
 const Nav = styled.div`
-  padding: 4rem 0rem;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
 
   svg {

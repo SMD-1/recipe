@@ -14,16 +14,16 @@ const Recipe = () => {
   console.log(urll);
   const share = async () => {
     try {
-      if(navigator.share) {
+      if (navigator.share) {
         await navigator.share({
-          text : "I have found this awesome recipe❤️, You should also try this",
-          url: urll
-        })
+          text: "I have found this awesome recipe❤️, You should also try this",
+          url: urll,
+        });
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   console.log(details);
   useEffect(() => {
@@ -38,26 +38,36 @@ const Recipe = () => {
   }, [params.name]);
   return (
     <DetailWrapper>
-      <div>
-        <h2>{details.title}</h2>
-        <img src={details.image} alt="" />
-        <div onClick={share} style={{ cursor: "pointer" }}>
-          <BiShareAlt size="2rem"  />
+      <InfoLeft>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            padding: "10px 5px",
+          }}
+        >
+          <h2>{details.title}</h2>
+          <span onClick={share} style={{ cursor: "pointer" }}>
+            <BiShareAlt size="2rem" />
+          </span>
         </div>
-      </div>
-      <Info>
-        <Button
-          className={activeTab === "instructions" ? "active" : ""}
-          onClick={() => setActiveTab("instructions")}
-        >
-          Instructions
-        </Button>
-        <Button
-          className={activeTab === "ingredients" ? "active" : ""}
-          onClick={() => setActiveTab("ingredients")}
-        >
-          Ingredients
-        </Button>
+        <img src={details.image} alt="" />
+      </InfoLeft>
+      <InfoRight>
+        <Buttons>
+          <button
+            className={activeTab === "instructions" ? "active" : ""}
+            onClick={() => setActiveTab("instructions")}
+          >
+            Instructions
+          </button>
+          <button
+            className={activeTab === "ingredients" ? "active" : ""}
+            onClick={() => setActiveTab("ingredients")}
+          >
+            Ingredients
+          </button>
+        </Buttons>
         {activeTab === "instructions" ? (
           <div>
             <h3 dangerouslySetInnerHTML={{ __html: details.summary }}></h3>
@@ -70,22 +80,70 @@ const Recipe = () => {
             })}
           </ul>
         )}
-      </Info>
+      </InfoRight>
     </DetailWrapper>
   );
 };
 
 const DetailWrapper = styled.div`
   display: flex;
-  margin-top: 5rem;
+  justify-content: center;
+  align-items: self-start;
+  flex-direction: row;
+  padding: 1rem 0;
+  flex-gap: 1rem;
+  max-width: 90vw;
+  margin-top: 1rem;
   margin-bottom: 5rem;
+
+  @media (max-width: 850px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+const Buttons = styled.div`
+  display: flex;
+
+  @media (max-width: 850px) {
+    margin-top: 1rem;
+  }
+`;
+
+const InfoLeft = styled.div`
+  width: 50vw;
+  diplsay: flex;
+
+  img {
+    width: 100%;
+    border-radius: 15px;
+  }
+
+  @media (max-width: 850px) {
+    width: 80vw;
+  }
+`;
+
+const InfoRight = styled.div`
+  margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+
   .active {
     background: linear-gradient(35deg, #494949, #313131);
     color: white;
   }
-  h2 {
-    margin-bottom: 2rem;
+
+  button {
+    padding: 1rem 2rem;
+    width: 150px;
+    color: #313131;
+    background: white;
+    cursor: pointer;
+    margin: 10px;
   }
+
   li {
     font-size: 1.2rem;
     line-height: 2.5rem;
@@ -93,19 +151,15 @@ const DetailWrapper = styled.div`
   ul {
     margin-top: 2rem;
   }
-`;
 
-const Button = styled.button`
-  padding: 1rem 2rem;
-  color: #313131;
-  background: white;
-  border: 2px solid black;
-  margin-right: 2rem;
-  cursor: pointer;
-`;
+  @media (max-width: 850px) {
+    width: 80vw;
+    margin-left: 10px;
 
-const Info = styled.div`
-  margin-left: 10rem;
+    button {
+      padding: 1rem;
+    }
+  }
 `;
 
 export default Recipe;
